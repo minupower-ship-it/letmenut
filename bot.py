@@ -67,7 +67,7 @@ def join_keyboard():
 def payment_keyboard():
     return {
         "inline_keyboard": [
-            [{"text": "💳 Pay with Stripe", "url": "https://buy.stripe.com/bJe8wR1oO1nq3sN7Y41ck00"}],
+            [{"text": "💳 Stripe", "url": "https://buy.stripe.com/bJe8wR1oO1nq3sN7Y41ck00"}],
             [{"text": "💸 PayPal", "url": "https://www.paypal.com/paypalme/minwookim384/20usd"}],
             [{"text": "🪙 USDT (TRON)", "callback_data": "crypto"}],
             [{"text": "🆘 Help", "url": "https://t.me/mbrypie"}]
@@ -140,3 +140,4 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
