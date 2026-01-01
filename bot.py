@@ -18,7 +18,7 @@ CRYPTO_QR = "https://files.catbox.moe/fkxh5l.png"
 CRYPTO_ADDRESS = "TERhALhVLZRqnS3mZGhE1XgxyLnKHfgBLi"
 
 # ================= 텍스트 =================
-CAPTION = "
+CAPTION = ""
 
 
 
@@ -34,7 +34,7 @@ CAPTION = "
 
 
 
-"
+""
 
 # ================= DB 연결 =================
 DATABASE_URL = os.environ.get("DATABASE_URL")
@@ -168,4 +168,5 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
 
