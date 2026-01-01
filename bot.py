@@ -11,34 +11,13 @@ TOKEN = os.environ.get("BOT_TOKEN")
 API_URL = f"https://api.telegram.org/bot{TOKEN}"
 
 VIDEO_URL = "https://files.catbox.moe/3f3sul.mp4"
-
 ADMIN_ID = 5619516265
 
 CRYPTO_QR = "https://files.catbox.moe/fkxh5l.png"
 CRYPTO_ADDRESS = "TERhALhVLZRqnS3mZGhE1XgxyLnKHfgBLi"
 
-# ================= 텍스트 =================
-CAPTION = """
-
-
-
-
-
-
-
-     LETMENUT MEMBERSHIP     
-
-
-
-
-
-
-
-"""
-
 # ================= DB 연결 =================
 DATABASE_URL = os.environ.get("DATABASE_URL")
-
 up.uses_netloc.append("postgres")
 url = up.urlparse(DATABASE_URL)
 
@@ -51,7 +30,6 @@ conn = psycopg2.connect(
 )
 conn.autocommit = True
 
-
 # ================= DB 마이그레이션 =================
 def migrate_db():
     with conn.cursor() as cur:
@@ -62,9 +40,7 @@ def migrate_db():
         """)
     print("DB ready")
 
-
 migrate_db()
-
 
 # ================= DB 함수 =================
 def save_user(chat_id):
@@ -75,21 +51,18 @@ def save_user(chat_id):
             ON CONFLICT (chat_id) DO NOTHING
         """, (chat_id,))
 
-
 def get_user_count():
     with conn.cursor() as cur:
         cur.execute("SELECT COUNT(*) FROM users")
         return cur.fetchone()[0]
 
-
 # ================= 키보드 =================
 def join_keyboard():
     return {
         "inline_keyboard": [
-            [{"text": "JOIN", "callback_data": "join"}]
+            [{"text": "Membership Join", "callback_data": "join"}]
         ]
     }
-
 
 def payment_keyboard():
     return {
@@ -101,7 +74,6 @@ def payment_keyboard():
         ]
     }
 
-
 # ================= Webhook =================
 @app.route("/", methods=["GET", "POST"])
 def webhook():
@@ -112,7 +84,7 @@ def webhook():
     if not update:
         return "ok"
 
-    # ---------- 메시지 ----------
+    # ---------- 메시지 처리 ----------
     if "message" in update:
         message = update["message"]
         chat_id = message["chat"]["id"]
@@ -125,7 +97,6 @@ def webhook():
             requests.post(f"{API_URL}/sendVideo", json={
                 "chat_id": chat_id,
                 "video": VIDEO_URL,
-                "caption": CAPTION,
                 "reply_markup": join_keyboard()
             })
 
@@ -136,25 +107,27 @@ def webhook():
                 "text": f"👥 Total users: {count}"
             })
 
-    # ---------- 버튼 ----------
+    # ---------- 버튼 처리 ----------
     if "callback_query" in update:
         cq = update["callback_query"]
         chat_id = cq["from"]["id"]
         data = cq["data"]
 
-        # 로딩 멈춤
+        # Telegram 로딩 멈춤
         requests.post(f"{API_URL}/answerCallbackQuery", json={
             "callback_query_id": cq["id"]
         })
 
         if data == "join":
-            # 결제 버튼 표시
+            # JOIN 클릭 시 caption + 결제 버튼 표시
             requests.post(f"{API_URL}/sendMessage", json={
                 "chat_id": chat_id,
+                "text": "💎 Lifetime Entry - $20",
                 "reply_markup": payment_keyboard()
             })
 
         elif data == "crypto":
+            # USDT 클릭 시 QR 사진 전송
             requests.post(f"{API_URL}/sendPhoto", json={
                 "chat_id": chat_id,
                 "photo": CRYPTO_QR,
@@ -163,12 +136,7 @@ def webhook():
 
     return "ok"
 
-
 # ================= 실행 =================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-
-
-
-
