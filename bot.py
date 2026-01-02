@@ -132,7 +132,7 @@ We’re glad to have you here 🎉
 
 With this bot, you can easily browse and subscribe to our premium plans designed to give you access to exclusive content, updates, and special offers through our private Telegram channels 📲✨
 
-Simply choose the plan that suits you best, and you’ll be automatically added to the corresponding private channel. Stay connected, get the latest updates, and enjoy content shared with a like-minded community 🚀
+Simply send the proof of payment, and you’ll be added to the corresponding private channel. Stay connected, get the latest updates, and enjoy content shared with a like-minded community 🚀
 
 If you have any questions or need support, don’t hesitate to reach out — we’re always happy to help 🤝
 
@@ -161,5 +161,6 @@ Enjoy exploring and welcome to the premium experience 🌟
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
 
 
