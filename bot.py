@@ -138,7 +138,12 @@ If you have any questions or need support, don’t hesitate to reach out — we�
 
 Enjoy exploring and welcome to the premium experience 🌟
 
-💎 Lifetime Entry - $20\n📅 {formatted_date} - active\n⚡ Immediate access - on
+💎 Lifetime Entry - $20
+
+📅 {formatted_date} - active
+
+⚡ Immediate access - on
+
 """
 
             requests.post(f"{API_URL}/sendMessage", json={
@@ -161,6 +166,7 @@ Enjoy exploring and welcome to the premium experience 🌟
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
