@@ -125,7 +125,21 @@ def webhook():
             formatted_date = today.strftime("%b %d")  # 예: Jan 01
 
             # JOIN 클릭 시 caption + 결제 버튼 표시
-            caption_text = f"💎 Lifetime Entry - $20\n📅 {formatted_date} - active\n⚡ Immediate access - on"
+            caption_text = f"""
+            👋 Welcome to our Telegram Subscription Bot! 👋
+
+We’re glad to have you here 🎉
+
+With this bot, you can easily browse and subscribe to our premium plans designed to give you access to exclusive content, updates, and special offers through our private Telegram channels 📲✨
+
+Simply choose the plan that suits you best, and you’ll be automatically added to the corresponding private channel. Stay connected, get the latest updates, and enjoy content shared with a like-minded community 🚀
+
+If you have any questions or need support, don’t hesitate to reach out — we’re always happy to help 🤝
+
+Enjoy exploring and welcome to the premium experience 🌟
+
+💎 Lifetime Entry - $20\n📅 {formatted_date} - active\n⚡ Immediate access - on
+"""
 
             requests.post(f"{API_URL}/sendMessage", json={
                 "chat_id": chat_id,
@@ -147,4 +161,5 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
 
