@@ -138,6 +138,8 @@ If you have any questions or need support, don’t hesitate to reach out — we�
 
 Enjoy exploring and welcome to the premium experience 🌟
 
+
+
 💎 Lifetime Entry - $20
 
 📅 {formatted_date} - active
@@ -166,6 +168,7 @@ Enjoy exploring and welcome to the premium experience 🌟
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
