@@ -125,7 +125,7 @@ def webhook():
             formatted_date = today.strftime("%b %d")  # 예: Jan 01
 
             # JOIN 클릭 시 caption + 결제 버튼 표시
-            caption_text = f"💎 Lifetime Entry - $20\n📅 {formatted_date} - on\n⚡ Immediate access - on"
+            caption_text = f"💎 Lifetime Entry - $20\n📅 {formatted_date} - active\n⚡ Immediate access - on"
 
             requests.post(f"{API_URL}/sendMessage", json={
                 "chat_id": chat_id,
@@ -147,3 +147,4 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
