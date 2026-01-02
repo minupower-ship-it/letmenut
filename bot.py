@@ -3,6 +3,7 @@ import requests
 import os
 import psycopg2
 import urllib.parse as up
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -119,10 +120,16 @@ def webhook():
         })
 
         if data == "join":
+            # 오늘 날짜 가져오기
+            today = datetime.utcnow()
+            formatted_date = today.strftime("%b %d")  # 예: Jan 01
+
             # JOIN 클릭 시 caption + 결제 버튼 표시
+            caption_text = f"💎 Lifetime Entry - $20\n📅 {formatted_date} - on\n⚡ Immediate access - on"
+
             requests.post(f"{API_URL}/sendMessage", json={
                 "chat_id": chat_id,
-                "text": "💎 Lifetime Entry - $20",
+                "text": caption_text,
                 "reply_markup": payment_keyboard()
             })
 
@@ -140,4 +147,3 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-
